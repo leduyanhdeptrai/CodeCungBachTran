@@ -1,0 +1,55 @@
+#include <bits/stdc++.h>
+#define ll long long
+#define fi first
+#define se second
+#define f(i,a,b) for(int i=a; i<=b; ++i)
+#define fn(i,a,b) for(int i=a; i>=b; --i)
+const int MOD=1e9+7;
+using namespace std;
+
+vector<int>adj[15];
+int n, m, a, b, visited[15], pre[15], goal, start;
+void solution(){
+  int tmp=goal;
+  stack<int>st;
+  while(tmp!=start){
+    st.push(tmp);
+    tmp=pre[tmp];
+  }
+  cout<<start;
+  while(!st.empty()){cout<<"->"<<st.top(); st.pop();}
+  cout<<'\n';
+}
+void bfs(int start, int goal){
+  queue<int>q;
+  q.push(start);
+  visited[start]=1;
+  while(!q.empty()){
+    int tmp=q.front();
+    q.pop();
+    if(tmp==goal) {solution(); return;}
+    for(int i=0; i<adj[tmp].size(); ++i){
+      int x=adj[tmp][i];
+      //cout<<x<<'\n';
+      if(visited[x]==0) {q.push(x), visited[x]=1, pre[x]=tmp;}
+    }
+  }
+  cout<<"No Solution!";
+}
+int main()
+{
+  //ios_base::sync_with_stdio(false); cin.tie(0); cout.tie(0);
+  cin >> n >> m;
+  f(i,1,m) {
+    cin >> a >> b;
+    adj[a].push_back(b);
+  }
+  int t;
+  cin >> t;
+  while(t--){
+    cin >> start >> goal;
+    bfs(start,goal);
+    f(i,1,n) visited[i]=0;
+  }
+return 0;
+}
