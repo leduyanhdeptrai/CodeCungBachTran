@@ -6,12 +6,13 @@ ull a, b;
 ull power(ull a, ull b){
   if(b == 0) return 1;
   ull tmp = power (a, b / 2);
-  if(b % 2) return ((tmp * tmp) % MOD * a) % MOD;
+  if(b % 2) return ((tmp * tmp) % MOD * a ) % MOD;
   return (tmp * tmp) % MOD;
 }
 int main()
 {
     cin >> a >> b;
+    a %= MOD;
     cout << power (a, b);
     return 0;
 }
